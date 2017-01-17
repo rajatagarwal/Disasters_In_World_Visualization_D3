@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    body { 
+        background-color: white;
+        font-family: 'PT Serif', serif;
+    }
+
+    h1 {
+        font-weight: 400;
+        color: #67000d;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 52px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+        padding-left: 50px;
+    }
+    h3 {
+        font-weight: 200;
+        color: #67000d;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 30px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+        padding-left: 50px;
+    }
+    p {
+        font-size: 18px;
+        width: 1350px;
+        margin-top: 10px;
+        padding-left: 50px;
+        margin-bottom: 10px;
+    }
+    ul{
+        padding-left: 100px;
+    }
+    li {
+        font-size: 18px;
+        width: 1200px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        color: #3f007d;
+    }
+
+    a:hover {
+        color: #6a51a3;
+    }
+
+    .footer {
+        font-size: 14px;
+        margin-top: 0px;
+    }
+
+    select {
+        font-family: "Roboto";
+        font-size: 16px;
+    }
+
+    .dropdown {
+        display: inline;
+        padding-left: 10px;
+    }
+
+    svg {
+        background-color: white;
+    }
+
+    .bar_ch:hover {
+        fill: #4575b4;
+    }
+
+    .value {
+        fill: white;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+    
+    .axis text {
+        font-family: sans-serif;
+        font-size: 10px;
+    }
+
+    .x.axis text {
+        opacity: 0;
+    }
+
+    .y.axis path,
+    .y.axis line {
+        stroke: #fff;
+        stroke-dasharray: 1,2;
+        opacity: 1;
+        pointer-events: none;
+    }
+
+    div.tooltip_choropleth {   
+        position: absolute;         
+        text-align: center;         
+        white-space: normal;                    
+        padding: 2px;               
+        font-size: 14px;        
+        background: whitesmoke; 
+        border: 1px solid gray; 
+        border-radius: 4px;         
+        pointer-events: none;
+        cursor: none;           
+    }
+    div.tooltip {   
+        position: absolute;         
+        text-align: center;         
+        white-space: normal;                    
+        padding: 2px;               
+        font-size: 14px;        
+        background: whitesmoke; 
+        border: 1px solid gray; 
+        border-radius: 4px;         
+        pointer-events: none;
+        cursor: none;           
+    }
+    .line_world_population {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 3px;
+    }
+</style>
+<body>
+    <h1>Purpose of this Visualisation:</h1>
+    <ul><li>Which Natural Disasters occur most in which countries (developing or developed)?</li>
+    <li>Which are the most disaster prone countries?</li>
+    <li>Where these countries lie in the Hans Rosling GapMinder Graph i.e what is the life expectancy and the income per capita of these countries?</li>
+    <li>Which disasters are more influencial in effecting people?
+    </li></ul>
+    <h3>Disaster Occurrences Worldwide</h3> 
+    <p>Below visualization demonstrates the accumulated occurrences of various natural disasters in different countries from 1900 to 2016.</p>
+    <p>Features of this visualization:</p>
+    <p><strong><u>Details:</u></strong></p>
+    <ul>
+        <li>This visualization consists of two charts: A <strong><u>choropleth & a bar graph</u></strong>.</li>
+        <li>Choropleth depicts a World Map with countries in different shades. The occurrences of the disaster from 1900 to 2016 is defining the color of the country. The darker the shade, the more disaster prone the country is.</li>
+        <li>We have the option to select various types of Natural Disasters from the dropdown menu. On selection of a disaster type, it will update the color of the countries according to the occurrence of that selected disaster. For Example - Selecting Landslide as the disaster, we can observe that India and China are the leading countries. We can find them as the darkest in the world Map and also in the barchart which gets updated with the top 50 countries. We will further analyse on the placements of these countries in the Hans Rosling mapping graph of Health and Wealth.</li>
+    </ul>
+    <p>Choose the disaster type:  <span id="opt"></span></p>
+    <div width="1350" height="600" style="padding-left: 50px;" id="svganchor"></div>
+    <p>
+    <ul>
+    <li>We can observe the most impacted countries over the years are the one who are still developing countries are placed on the left and the center in the Hans Rosling Graph. This shows that Natural Disasters have impacted negatively on the development of countries. </li>
+    
+    <li>Lets check the disaster type as "Storm" - We can find United States topped. The placement of USA in Hans Rosling Graph is on the Right and it is a developed Nation. We will observe in the later graph that the Disaster Type "Storm" is not much influential as compared to others like Flood. </li>
+
+    <li>On the other hand, Natural disasters impact on developing countries is huge and results in making Poor countries more poor. If we observe the Disasters like Epidemic they are more in Under developed and developing countries like Africa and Asia. We can relate that most African countries in the Gap Minder are low in life Health and wealth and are placed left.</li>
+    </ul>
+    </p>
+
+    <h3>Disaster occurrences over the years (1900 - 2016)</h3>
+    <svg width="1350" height="600" style="padding-left: 50px;" id="svg_occurrences_1900_2016"></svg>
+    <p> <ul><li>We further analysed the trend of the disasters over the years and we figured out that it shows an increasing trend. Especially, from the year 1948 there is an steep increament in the curve.</li>
+    <li> By hovering on the bars we can observe the Year and the number of disaster occurences.</li></ul></p>
+    
+    
+    <h3>People effected over the years (1900 - 2016)</h3>
+    <svg width="1350" height="600" style="padding-left: 50px;" id="svg_stacked_bar_all"></svg>
+    <p> <ul><li>The above barchart represents that the number of people effected by the natural disasters over the time have increased. The effected people data is the cummulative of the people died, injured and lost. This is proportional to the increase in the number of occurances over the years.</li></ul></p>
+    <h3>Over all distribution of disasters over the years (Based on affected people and Number of disaster)</h3>
+    
+
+     <p> <ul><li>By hovering the below Donut Charts, we can observe the percentage of the occurences and the people impacted.</li>
+     <li> The below donut Graph1 represents the distribution of the overall disasters based on the number of disaster. We clearly see that the Flood is the Natural Disaster which occured the most. If now we observe in our Choropleth, the countries which are most impacted are the developing countries like India and China.</li>
+
+     <li>From the Donut Graph2, we can find that the intensity of Flood on impacting people is also huge as compared to a Storm. The occurance of drought is also very high as compared to Storm.</li>
+
+     <li>Selecting the Disaster type as Storm in the Choropleth, we observe that amoung the most affected countries from this type of disaster is USA. Though it has occured the most in United States, it does not have an high impact on the number of people affected.</li>
+
+     <li>This also indicates that the disaster which are most impactful have occured in Developing Nations. On the contrast, Developed countries like USA are prepared and have prevention programs in place to control the impact on people from the disasters.</li>
+
+     <li> Relating to the Stack Barchart, People effected over the years with the Donut graph of impacted people from disasters with high impacts like Flood, Earthquake and Drought occurs most on the Asian and African Nations. This indicates that the effected people from these nations possess an increasing trend over the years and this has adverely effected the growth of these Nations.
+
+     
+     </ul></p>
+    <div width="1350" style="display: inline-table;">
+        <div width="500" height="400" style="padding-left: 100px; float: left; display:inline-table;" id="svg_donut_occurrence"></div>
+        <div width="500" height="400" style="padding-left: 300px; float: right; display: inline-table;" id="svg_donut_affected"></div>
+    </div>
+    <br/><br/>
+    <p><strong><u>Conclusions: </u></strong></p>
+    <ul>
+        <li> Disasters with major impact on people occurs more on the Developing Nations (Asia and Africa).</li>
+    <li>These same countries stays in the left side or the center of the Hans Rosling GapMinder Graph i.e the life expectancy and the income per capita of these Nations are low during the years and still in the year 2015.</li>
+    <li> Natural Disasters have negative impact on the growth of Nations and it makes the Poor nations poorer. Developed Nations are well planned with the control structure on impact of people from disasters.</li>
+</ul>
+     
+    
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="disaster_choropleth.js"></script>
+<script src="t2_occurrence_stacked_bar.js"></script>
+
+<script src="t2_all_years_stacked_bar.js"></script>
+<script src="t2_donut_affected.js"></script>
+<script src="t2_donut_occurrence.js"></script>
+
+</html>
